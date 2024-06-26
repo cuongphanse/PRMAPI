@@ -1,0 +1,44 @@
+[
+  {
+    "ContainingType": "PRM.PRJ.API.Controllers.AuthenticateController",
+    "Method": "SignIn",
+    "RelativePath": "api/Authenticate/signIn",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "PRM.PRJ.API.Models.ViewModel.UserSignIn",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PRM.PRJ.API.Controllers.AuthenticateController",
+    "Method": "SignUp",
+    "RelativePath": "api/Authenticate/signUp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "signUpModel",
+        "Type": "PRM.PRJ.API.Models.ViewModel.UserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PRM.PRJ.API.Controllers.ProductController",
+    "Method": "Get",
+    "RelativePath": "api/Product",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
