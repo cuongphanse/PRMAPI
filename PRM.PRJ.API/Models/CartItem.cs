@@ -7,7 +7,7 @@ namespace PRM.PRJ.API.Models
     {
         [Key]
         public int Id { get; set; }
-        public Guid ItemId { get; set; }
+        public int ProductId { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
         public int Quantity { get; set; }

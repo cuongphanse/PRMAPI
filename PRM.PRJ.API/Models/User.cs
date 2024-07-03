@@ -6,6 +6,7 @@ namespace PRM.PRJ.API.Models
 {
     public class User : IdentityUser
     {
+        public string FirstName { get; set; }
         public String LastName { get; set; }
         public String Phone { get; set; }
         public String Address { get; set; }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PRM.PRJ.API.Constants;
 using PRM.PRJ.API.Models;
 using PRM.PRJ.API.Models.ViewModel;
+using System.Threading.Tasks;
 
 namespace PRM.PRJ.API.Controllers
 {
@@ -73,24 +74,93 @@ namespace PRM.PRJ.API.Controllers
         public async Task<IActionResult> SignIn(UserSignIn model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 var user = await _userManager.FindByNameAsync(model.UserName);
                 if (user == null)
                 {
                     return NotFound("Sai tên đăng nhập hoặc mật khẩu");
                 }
-                //else if (user.EmailConfirmed == false)
-                //{
-                //    return BadRequest("Tài khoản của bạn chưa được xác nhận vui lòng confirm qua email của bạn!");
-                //}
-            } else
+                else
+                {
+                    return Ok(user.Id);
+                }
+            }
+            else
             {
                 return NotFound("Sai tên đăng nhập hoặc mật khẩu");
             }
-            return Ok();
-          
+
+        }
+        //[Authorize]
+        [HttpGet("getAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = _userManager.Users.ToList();
+            var userDTOs = users.Select(user => new UserVM
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Phone = user.PhoneNumber,
+                Address = user.Address,
+                Birthday = user.Birthday
+            }).ToList();
+
+            return Ok(userDTOs);
         }
 
+        //[Authorize]
+        [HttpPut("updateUser/{id}")]
+        public async Task<IActionResult> UpdateUser(UserUpdateDTO updateUserModel, string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Update user properties from updateUserModel
+            
+            user.Email = updateUserModel.Email;
+            user.FirstName = updateUserModel.FirstName;
+            user.LastName = updateUserModel.LastName;
+            user.PhoneNumber = updateUserModel.Phone;
+            user.Address = updateUserModel.Address;
+            user.Birthday = updateUserModel.Birthday;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(result.Errors);
+            }
+        }
+
+        //[Authorize]
+        [HttpDelete("deleteUser/{userId}")]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(result.Errors);
+            }
+        }
     }
 }
