@@ -5,10 +5,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PRM.PRJ.API.Migrations
 {
-    public partial class ShoppingApp : Migration
+    public partial class oi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Map",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    local = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Map", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
@@ -38,6 +52,31 @@ namespace PRM.PRJ.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transactions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Amount = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BankCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BankTranNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CardType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PayDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResponseCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TmnCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TransactionNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TransactionStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TxnRef = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SecureHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transactions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -323,10 +362,16 @@ namespace PRM.PRJ.API.Migrations
                 name: "CartItem");
 
             migrationBuilder.DropTable(
+                name: "Map");
+
+            migrationBuilder.DropTable(
                 name: "OrderDetail");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "Transactions");
 
             migrationBuilder.DropTable(
                 name: "UserClaims");
