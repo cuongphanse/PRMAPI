@@ -12,6 +12,8 @@ namespace PRM.PRJ.API.Data
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderDetail> OrderDetail { get; set; }
         public DbSet<Product> Product { get; set; }
+        public DbSet<Map> Map { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
