@@ -106,7 +106,7 @@ namespace PRM.PRJ.API.Controllers
                 return BadRequest();
             }
         }
-
+        
         [HttpGet("{id}")]
         public IActionResult GetProductById(int id)
         {

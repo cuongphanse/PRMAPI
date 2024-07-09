@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PRM.PRJ.API.Data;
 using PRM.PRJ.API.Models;
+using PRM.PRJ.API.Models.ViewModel;
 
 namespace PRM.PRJ.API.Controllers
 {
@@ -20,9 +21,54 @@ namespace PRM.PRJ.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_context.CartItem);
+            // Fetch all cart items including related user and product data
+            var cartItems = await _context.CartItem
+                .Include(ci => ci.User)
+                .Include(ci => ci.Products)
+                .ToListAsync();
+
+            // Map to CartDTO
+            var cartDTOs = cartItems.Select(ci => new CartDTO
+            {
+                Id = ci.Id,
+                UserId = ci.User.Id,
+                ProductId = ci.ProductId,
+                Name = ci.Products.Name,
+                Description = ci.Products.Description,
+                Price = ci.Products.Price * ci.Quantity,
+                Quantity = ci.Quantity,
+                urlImage = ci.Products.urlImage
+            }).ToList();
+
+            return Ok(cartDTOs);
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetCartByUserId(string userId)
+        {
+            // Fetch all cart items including related user and product data
+            var cartItems = await _context.CartItem
+                .Include(ci => ci.User)
+                .Include(ci => ci.Products)
+                .Where(ci => ci.User.Id == userId)
+                .ToListAsync();
+
+            // Map to CartDTO
+            var cartDTOs = cartItems.Select(ci => new CartDTO
+            {
+                Id = ci.Id,
+                UserId = ci.User.Id,
+                ProductId = ci.ProductId,
+                Name = ci.Products.Name,
+                Description = ci.Products.Description,
+                Price = ci.Products.Price * ci.Quantity,
+                Quantity = ci.Quantity,
+                urlImage = ci.Products.urlImage
+            }).ToList();
+
+            return Ok(cartDTOs);
         }
 
         [HttpPost("addToCart")]

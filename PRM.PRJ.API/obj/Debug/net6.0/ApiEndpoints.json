@@ -80,12 +80,28 @@
   },
   {
     "ContainingType": "PRM.PRJ.API.Controllers.CartController",
-    "Method": "Get",
+    "Method": "GetAll",
     "RelativePath": "api/Cart",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PRM.PRJ.API.Controllers.CartController",
+    "Method": "GetCartByUserId",
+    "RelativePath": "api/Cart/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

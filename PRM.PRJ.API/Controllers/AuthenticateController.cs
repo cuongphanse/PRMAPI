@@ -14,14 +14,16 @@ namespace PRM.PRJ.API.Controllers
     [ApiController]
     public class AuthenticateController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AuthenticateController(UserManager<User> userManager, SignInManager<User> signInManager,
-            RoleManager<IdentityRole> roleManager, IMapper mapper)
+            RoleManager<IdentityRole> roleManager, IMapper mapper, IConfiguration configuration)
         {
+            _configuration = configuration;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -73,25 +75,47 @@ namespace PRM.PRJ.API.Controllers
         [HttpPost("signIn")]
         public async Task<IActionResult> SignIn(UserSignIn model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
-            if (result.Succeeded)
+            var adUserName = _configuration["AdminCredential:Username"];
+            var adpassword = _configuration["AdminCredential:Password"];
+
+            if(adUserName.Equals(model.UserName) && adpassword.Equals(model.Password))
             {
-                var user = await _userManager.FindByNameAsync(model.UserName);
-                if (user == null)
+                return Ok(new
                 {
-                    return NotFound("Sai tên đăng nhập hoặc mật khẩu");
+                    IsAdmin = true
+                });
+            } else
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+                if (result.Succeeded)
+                {
+                    var user = await _userManager.FindByNameAsync(model.UserName);
+                    if (user == null)
+                    {
+                        return NotFound("Sai tên đăng nhập hoặc mật khẩu");
+                    }
+                    else
+                    {
+                        var roles = await _userManager.GetRolesAsync(user);
+                        var isAdmin = roles.Contains("Admin");
+                        var fullName = $"{user.FirstName} {user.LastName}";
+
+                        return Ok(new
+                        {
+                            UserId = user.Id,
+                            FullName = fullName,
+                            IsAdmin = isAdmin
+                        });
+                    }
                 }
                 else
                 {
-                    return Ok(user.Id);
+                    return NotFound("Sai tên đăng nhập hoặc mật khẩu");
                 }
             }
-            else
-            {
-                return NotFound("Sai tên đăng nhập hoặc mật khẩu");
-            }
-
+        
         }
+
         //[Authorize]
         [HttpGet("getAllUsers")]
         public async Task<IActionResult> GetAllUsers()

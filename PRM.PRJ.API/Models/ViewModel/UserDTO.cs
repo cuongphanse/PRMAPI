@@ -21,7 +21,7 @@ namespace PRM.PRJ.API.Models.ViewModel
         public String Birthday { get; set; }
         [StringLength(10)]
         public String? Phone { get; set; }
-        public bool IsAdmin { get; set; }   = false;
+        public bool IsAdmin { get; set; }
     }
     public class UserVM
     {
