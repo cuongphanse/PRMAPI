@@ -37,7 +37,7 @@ namespace PRM.PRJ.API.Controllers
                 ProductId = ci.ProductId,
                 Name = ci.Products.Name,
                 Description = ci.Products.Description,
-                Price = ci.Products.Price,
+                Price = ci.Products.Price * ci.Quantity,
                 Quantity = ci.Quantity,
                 urlImage = ci.Products.urlImage
             }).ToList();
@@ -63,7 +63,7 @@ namespace PRM.PRJ.API.Controllers
                 ProductId = ci.ProductId,
                 Name = ci.Products.Name,
                 Description = ci.Products.Description,
-                Price = ci.Products.Price,
+                Price = ci.Products.Price * ci.Quantity,
                 Quantity = ci.Quantity,
                 urlImage = ci.Products.urlImage
             }).ToList();

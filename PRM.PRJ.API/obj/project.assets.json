@@ -7553,19 +7553,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\phucv\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SUBJECT\\PRMAPI\\PRM.PRJ.API\\PRM.PRJ.API\\PRM.PRJ.API.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\PRM392\\FinalPRoject\\PRMAPI\\PRM.PRJ.API\\PRM.PRJ.API.csproj",
       "projectName": "PRM.PRJ.API",
-      "projectPath": "D:\\SUBJECT\\PRMAPI\\PRM.PRJ.API\\PRM.PRJ.API\\PRM.PRJ.API.csproj",
-      "packagesPath": "C:\\Users\\phucv\\.nuget\\packages\\",
-      "outputPath": "D:\\SUBJECT\\PRMAPI\\PRM.PRJ.API\\PRM.PRJ.API\\obj\\",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\PRM392\\FinalPRoject\\PRMAPI\\PRM.PRJ.API\\PRM.PRJ.API.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\PRM392\\FinalPRoject\\PRMAPI\\PRM.PRJ.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\phucv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7656,7 +7661,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
