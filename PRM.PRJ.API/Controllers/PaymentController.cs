@@ -19,9 +19,9 @@ namespace PRM.PRJ.API.Controllers
         }
 
         [HttpPost("create-payment")]
-        public IActionResult CreatePayment(float amount,string orderDescription, string locale)
+        public IActionResult CreatePayment(float amount,string orderid, string locale)
         {
-            string paymentUrl = _paymentService.CreatePaymentUrl(amount, orderDescription, locale);
+            string paymentUrl = _paymentService.CreatePaymentUrl(amount, orderid, locale);
             return Ok(new { PaymentUrl = paymentUrl });
         }
 
