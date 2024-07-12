@@ -43,7 +43,7 @@ namespace PRM.PRJ.API.Services
             vnPay.AddRequestData("vnp_OrderType", "other");
             vnPay.AddRequestData("vnp_ReturnUrl", _configuration["VnPay:ReturnUrl"]);
             vnPay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString());
-
+            
             string paymentUrl = vnPay.CreateRequestUrl(_configuration["VnPay:BaseUrl"], _configuration["VnPay:HashSecret"]);
 
             return paymentUrl;
@@ -77,7 +77,7 @@ namespace PRM.PRJ.API.Services
                 BankCode = response.vnp_BankCode,
                 BankTranNo = response.vnp_BankTranNo,
                 CardType = response.vnp_CardType,
-                OrderInfo = response.vnp_OrderInfo,
+                OrderId = int.Parse(response.vnp_OrderInfo),
                 PayDate = response.vnp_PayDate,
                 ResponseCode = response.vnp_ResponseCode,
                 TmnCode = response.vnp_TmnCode,
@@ -85,7 +85,8 @@ namespace PRM.PRJ.API.Services
                 TransactionStatus = response.vnp_TransactionStatus,
                 TxnRef = response.vnp_TxnRef,
                 SecureHash = response.vnp_SecureHash,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                OrderInfo = "Null"
             };
 
             _context.Transactions.Add(transaction);
